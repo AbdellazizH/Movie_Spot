@@ -1,0 +1,91 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="CssUnknownProperty" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myCustomPropertiesEnabled" value="true" />
+      <option name="myIgnoreVendorSpecificProperties" value="false" />
+      <option name="myCustomPropertiesList">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="enable-background" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="16">
+            <item index="0" class="java.lang.String" itemvalue="css" />
+            <item index="1" class="java.lang.String" itemvalue="bonjour" />
+            <item index="2" class="java.lang.String" itemvalue="hx-target" />
+            <item index="3" class="java.lang.String" itemvalue="hx-swap" />
+            <item index="4" class="java.lang.String" itemvalue="hx-post" />
+            <item index="5" class="java.lang.String" itemvalue="hx-get" />
+            <item index="6" class="java.lang.String" itemvalue="hx-trigger" />
+            <item index="7" class="java.lang.String" itemvalue="hx-delete" />
+            <item index="8" class="java.lang.String" itemvalue="hx-confirm" />
+            <item index="9" class="java.lang.String" itemvalue="hx-vals" />
+            <item index="10" class="java.lang.String" itemvalue="hx-swap-oob" />
+            <item index="11" class="java.lang.String" itemvalue="hx-encoding" />
+            <item index="12" class="java.lang.String" itemvalue="hx_push-url" />
+            <item index="13" class="java.lang.String" itemvalue="sketch:type" />
+            <item index="14" class="java.lang.String" itemvalue="category" />
+            <item index="15" class="java.lang.String" itemvalue="url" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownTag" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="13">
+            <item index="0" class="java.lang.String" itemvalue="nobr" />
+            <item index="1" class="java.lang.String" itemvalue="noembed" />
+            <item index="2" class="java.lang.String" itemvalue="comment" />
+            <item index="3" class="java.lang.String" itemvalue="noscript" />
+            <item index="4" class="java.lang.String" itemvalue="embed" />
+            <item index="5" class="java.lang.String" itemvalue="script" />
+            <item index="6" class="java.lang.String" itemvalue="ol" />
+            <item index="7" class="java.lang.String" itemvalue="i" />
+            <item index="8" class="java.lang.String" itemvalue="img" />
+            <item index="9" class="java.lang.String" itemvalue="li" />
+            <item index="10" class="java.lang.String" itemvalue="td" />
+            <item index="11" class="java.lang.String" itemvalue="style" />
+            <item index="12" class="java.lang.String" itemvalue="p" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="decouple" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N806" />
+          <option value="N803" />
+          <option value="N801" />
+          <option value="N813" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="todo.models.TodoList.objects" />
+          <option value="todo.models.Todo.objects" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

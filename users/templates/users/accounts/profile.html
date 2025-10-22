@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container my-5">
+    <h1>Hello {{ user.username|capfirst }}</h1>
+
+    <div class="my-3" id="user-lists-container">
+      {% include 'users/lists/partials/_user_lists.html' %}
+    </div>
+    <div id="create_form_container"></div>
+  </div>
+{% endblock %}

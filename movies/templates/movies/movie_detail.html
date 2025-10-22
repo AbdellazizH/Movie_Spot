@@ -1,0 +1,77 @@
+{% include 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+  <div class="container my-5">
+    <h1>{{ movie.title }}</h1>
+    <h2 class="text-muted fw-light small">{{ movie.release_date }}</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <img class="card-img-top" src="{% if movie.poster_path %}https://image.tmdb.org/t/p/original/{{ movie.poster_path }}{% else %}https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/330px-No-Image-Placeholder.svg.png?20200912122019{% endif %}" alt="{{ movie.title }}">
+      </div>
+      <div class="col">
+        <p>{{ movie.overview }}</p>
+        <h3>Genres :</h3>
+        <ul class="list-inline">
+          {% for genre in movie.genres %}
+            <li class="list-inline-item">{{ genre.name }}{% if not forloop.last %}, {% endif %}</li>
+          {% empty %}
+            <p class="text-muted">No genre provided.</p>
+          {% endfor %}
+        </ul>
+        <ul class="list-inline">
+        <h3>Directors :</h3>
+        {% for member in credits.crew %}
+        	{% if member.job == "Director" %}
+        		<li class="list-inline-item">{{ member.name }}{% if not forloop.last %}, {% endif %}</li>
+        	{% endif %}
+        {% empty %}
+          <p class="text-muted">No director info available</p>
+        {% endfor %}
+        </ul>
+        
+        <h3>Cast :</h3>
+        <ul class="list-inline">
+          {% for member in credits.cast|slice:10 %}
+            <li class="list-inline-item">{{ member.name }}{% if not forloop.last %}, {% endif %}</li>
+          {% empty %}
+            <p class="text-muted">No cast provided.</p>
+          {% endfor %}
+        </ul>
+      {% if user.is_authenticated %}
+        <h5>Add to list :</h5>
+      	{% if user_lists %}
+          <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Add to list :
+            </button>
+            <ul class="dropdown-menu">
+              {% for list in user_lists %}
+                <li>
+                  <form
+                    hx-post="{% url 'add_to_list' list_id=list.id movie_id=movie.id movie_title=movie.title %}"
+                    hx-trigger="click"
+                    hx-target="#toast-container"
+                    hx-swap="beforeend"
+                  >
+                    {% csrf_token %}
+                    <button type="submit" class="dropdown-item">{{ list.name }}</button>
+                  </form>
+                </li>
+              {% endfor %}
+              <form method="get" action="{% url 'profile' %}">
+                <button class="btn">➕ List</button>
+              </form>
+            </ul>
+          </div>
+        {% else %}
+          <p>You don't have any lists. <a href="{% url 'profile' %}">Create a list</a></p>
+      	{% endif %}
+      {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="position-fixed bottom-0 end-0 m-4"></div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}
+	Landing page
+{% endblock %}
+
+{% block content %}
+  <div class="container mt-4 mb-4">
+    <form method="get" hx-get="{% url 'landing_page' %}" hx-target="#movie-container" hx-swap="innerHTML">
+      <select
+        class="btn btn-primary dropdown-toggle"
+        name="category"
+        id=""
+        hx-get="{% url 'landing_page' %}"
+        hx-target="#movie-container"
+        hx-swap="innerHTML">
+        <option value="popular" {% if category == 'popular' %} selected {% endif %}>Popular</option>
+        <option value="now_playing" {% if category == 'now_playing' %} selected {% endif %}>Now Playing</option>
+        <option value="top_rated" {% if category == 'top_rated' %} selected {% endif %}>Top Rated</option>
+        <option value="upcoming" {% if category == 'upcoming' %} selected {% endif %}>Upcoming</option>
+      </select>
+    </form>
+    <form
+      class="input-group w-50 mt-2"
+      method="get"
+      hx-get="{% url 'landing_page' %}"
+      hx-target="#movie-container"
+      hx-swap="innerHTML">
+      <input class="form-control" placeholder="search for movies..." type="text" name="search">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </div>
+
+    </form>
+    <div id="movie-container" class="row mt-4">
+      {% include 'movies/partials/_movie_list.html' %}
+    </div>
+  </div>
+
+  <div id="toast-container" class="position-fixed bottom-0 end-0 m-4"></div>
+
+{% endblock %}
