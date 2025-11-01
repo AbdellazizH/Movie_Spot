@@ -26,4 +26,7 @@ def landing_page(request):
     # print(data)
 
     context = {"movies": data, "category": category, "search_query": search_query, "error_message": error_message}
+
+    if request.headers.get('HX-Request'):
+        return render(request, "movies/partials/_movie_list.html", context)
     return render(request, "movies/landing.html", context)

@@ -6,8 +6,8 @@
 
 {% block content %}
   <div class="container mt-4">
-    <form method="get" action="{% url 'landing_page' %}">
-      <select class="btn btn-primary" name="category" id="" onchange="this.form.submit()">
+    <form method="get">
+      <select class="btn btn-primary" name="category" hx-get="{% url 'landing_page' %}" hx-target="#movie-container" hx-swap="innerHTML" >
         <option value="popular" {% if category == 'popular' %} selected {% endif %} >Popular</option>
         <option value="now_playing" {% if category == 'now_playing' %} selected {% endif %}>Now Playing</option>
         <option value="top_rated" {% if category == 'top_rated' %} selected {% endif %}>Top Rated</option>
@@ -15,7 +15,7 @@
       </select>
     </form>
 
-    <form method="get" action="{% url 'landing_page' %}" method="post" class="input-group w-50 mt-2">
+    <form method="get" hx-get="{% url 'landing_page' %}" hx-target="#movie-container" hx-swap="innerHTML" method="post" class="input-group w-50 mt-2">
       {% csrf_token %}
       <input name="search" type="text" class="form-control" placeholder="search for movies...">
       <div class="input-group-append">
@@ -23,24 +23,9 @@
       </div>
     </form>
 
-    {% if error_message %}
-    	<p>{{ error_message }}</p>
-    {% endif %} 
 
     <div id="movie-container" class="row mt-4">
-        {% for movie in movies %}
-          <div class="col-md">
-            <a href="#" class="text-decoration-none">
-                <div class="card" style="width: 18rem;">
-                  <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="card-img-top" alt="...">
-                  <div class="card-body">
-                    <h5 class="card-title">{{ movie.title }}</h5>
-                    <p class="card-text">{{ movie.vote_average|floatformat:1 }} / 10</p>
-                  </div>
-                </div>
-            </a>
-          </div>
-        {% endfor %}
+      {% include 'movies/partials/_movie_list.html' %}
     </div>
   </div>
 
