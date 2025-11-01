@@ -1,3 +1,4 @@
+{% load static %}
 {% if error_message %}
   <p>{{ error_message }}</p>
 {% endif %}
@@ -5,7 +6,11 @@
   <div class="col-md">
     <a href="#" class="text-decoration-none">
         <div class="card" style="width: 18rem;">
-          <img src="https://image.tmdb.org/t/p/original/{{ movie.poster_path }}" class="card-img-top" alt="...">
+          <img src="{% if movie.poster_path %}
+                      https://image.tmdb.org/t/p/original/{{ movie.poster_path }}
+                    {% else %}
+                      {% static 'img/no-image-found.png' %}
+                    {% endif %}" class="card-img-top" alt="{{ movie.title }}">
           <div class="card-body">
             <h5 class="card-title">{{ movie.title }}</h5>
             <p class="card-text">{{ movie.vote_average|floatformat:1 }} / 10</p>
@@ -14,3 +19,13 @@
     </a>
   </div>
 {% endfor %}
+
+{% if has_next %}
+	<div
+    id="scroll-trigger"
+    hx-get="{% url 'landing_page' %}?category={{ category }}&search={{ search_query }}&page={{ next_page }}"
+    hx-trigger="revealed"
+    hx-swap="beforeend"
+    hx-target="#movie-container"
+  ></div>
+{% endif %}
