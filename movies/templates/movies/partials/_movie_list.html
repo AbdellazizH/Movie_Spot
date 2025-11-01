@@ -4,7 +4,7 @@
 {% endif %}
 {% for movie in movies %}
   <div class="col-md">
-    <a href="#" class="text-decoration-none">
+    <a href="{% url 'movie_detail' movie.id %}" class="text-decoration-none">
         <div class="card" style="width: 18rem;">
           <img src="{% if movie.poster_path %}
                       https://image.tmdb.org/t/p/original/{{ movie.poster_path }}

@@ -1,0 +1,29 @@
+{% include 'base.html' %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card shadow-lg p-4">
+          <h3 class="text-center mb-4">Login</h3>
+          <form method="post">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="mb-3">
+                <label>{{ field.label }}</label>
+                {{ field }}
+              {% if field.errors %}
+                <p class="text-danger">{{ field.errors|striptags }}</p>
+              {% endif %}
+              </div>
+            {% endfor %}
+
+            <button class="btn btn-primary" type="submit">Login</button>
+          </form>
+          <a class="py-2" href="{% url 'register' %}">Don't have an account ?</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}
