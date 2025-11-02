@@ -1,8 +1,16 @@
 from django.contrib.auth.forms import UserCreationForm
-from users.models import CustomUser
+from django.forms import forms, ModelForm
+
+from users.models import CustomUser, UserList
 
 
 class RegisterUserForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ['username', 'email', 'password1', 'password2']
+
+
+class CreateListForm(ModelForm):
+    class Meta:
+        model = UserList
+        fields = ('name',)
