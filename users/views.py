@@ -1,6 +1,7 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.http import HttpResponseForbidden
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import FormView
 from users.forms import RegisterUserForm, CreateListForm
@@ -36,6 +37,7 @@ def profile(request):
     return render(request, "users/accounts/profile.html", context)
 
 
+@login_required
 def create_list(request):
     user = request.user
     if request.method == "POST":
@@ -51,3 +53,15 @@ def create_list(request):
     form = CreateListForm()
     context = {"form": form}
     return render(request, 'users/lists/partials/_create_list_form.html', context)
+
+
+@login_required
+def delete_list(request, list_id):
+    user_list = get_object_or_404(UserList, pk=list_id, user=request.user)
+    if request.method == "POST":
+        user_list.delete()
+        user_lists = UserList.objects.filter(user=request.user)
+
+        return render(request, "users/lists/partials/_user_lists.html", {"user_lists": user_lists})
+    return HttpResponseForbidden
+
