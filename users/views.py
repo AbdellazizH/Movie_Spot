@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.views import LoginView, LogoutView
 from django.views.generic import FormView
 from users.forms import RegisterUserForm, CreateListForm
-from users.models import UserList
+from users.models import UserList, ListItem
 
 
 class Login(LoginView):
@@ -64,4 +64,20 @@ def delete_list(request, list_id):
 
         return render(request, "users/lists/partials/_user_lists.html", {"user_lists": user_lists})
     return HttpResponseForbidden
+
+
+@login_required
+def add_to_list(request, list_id, movie_id, movie_name):
+    user_list = get_object_or_404(UserList, pk=list_id, user=request.user)
+
+    if ListItem.objects.filter(movie_id=movie_id, list=user_list).exists():
+        message = f"{movie_name} is already added to {user_list}"
+        status = "danger"
+    else:
+        ListItem.objects.create(movie_id=movie_id, movie_name=movie_name, list=user_list)
+        message = f"{movie_name} is added to {user_list}"
+        status = "success"
+
+    context = {"user_list": user_list, "message": message, "status": status}
+    return render(request, "users/toasts/_confirmation_toast.html", context)
 
