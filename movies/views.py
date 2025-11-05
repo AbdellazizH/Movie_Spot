@@ -2,6 +2,7 @@ import requests
 from django.shortcuts import render
 from django.conf import settings
 
+from users.models import UserList
 
 API_KEY = settings.TMDB_API_KEY
 
@@ -51,6 +52,7 @@ def movie_detail(request, movie_id):
     movie_detail_url = f"https://api.themoviedb.org/3/movie/{movie_id}?api_key={API_KEY}"
     movie_credits_url = f"https://api.themoviedb.org/3/movie/{movie_id}/credits?api_key={API_KEY}"
     error_message = ""
+    user_lists = UserList.objects.filter(user=request.user) if request.user.is_authenticated else None
 
     try:
         movie_detail_response = requests.get(movie_detail_url)
@@ -70,7 +72,7 @@ def movie_detail(request, movie_id):
         credits_data = []
         error_message = "Something went wrong !"
 
-    context = {"movie": movie_data, "error_message": error_message, "credits": credits_data}
+    context = {"movie": movie_data, "error_message": error_message, "credits": credits_data, "user_lists": user_lists}
 
     return render(request, "movies/movie_detail.html", context)
 

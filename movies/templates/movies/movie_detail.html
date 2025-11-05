@@ -6,7 +6,7 @@
     <h1>{{ movie.title }}</h1>
     <h2 class="text-muted fw-light small">{{ movie.release_date }}</h2>
     <div class="row">
-      <div class="col">
+      <div class="col-md-4">
         <img src="{% if movie.poster_path %}
                       https://image.tmdb.org/t/p/original/{{ movie.poster_path }}
                   {% else %}
@@ -43,8 +43,36 @@
             <p class="text-muted">No member provided</p>
           {% endfor %}
         </ul>
+        {% if user.is_authenticated %}
+          <h5>Add to list</h5>
+        	{% if user_lists %}
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Add to list
+              </button>
+              <ul class="dropdown-menu">
+                {% for list in user_lists %}
+                  <li>
+                    <form
+                      hx-post="{% url 'add_to_list' list_id=list.id movie_id=movie.id movie_name=movie.title %}"
+                      hx-trigger="click"
+                      hx-target="#toast-container"
+                      hx-swap="beforeend"
+                    >
+                      {% csrf_token %}
+                      <button type="submit" class="dropdown-item">{{ list.name }}</button>
+                    </form>
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
 
+          {% else %}
+            <p>You do not have any list, <a href="{% url 'profile' %}">Create a list</a></p>
+        	{% endif %}
+        {% endif %}
       </div>
     </div>
   </div>
+  <div id="toast-container" class="position-fixed bottom-0 end-0 m-4"></div>
 {% endblock %}
