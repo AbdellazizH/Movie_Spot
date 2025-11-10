@@ -10,7 +10,7 @@ API_KEY = settings.TMDB_API_KEY
 def landing_page(request):
     category = request.GET.get('category', 'popular')
     search_query = request.GET.get('search', '')
-
+    user_lists = UserList.objects.filter(user=request.user) if request.user.is_authenticated else None
     base_url = 'https://api.themoviedb.org/3/movie/'
     error_message = ""
     page = int(request.GET.get('page', 1))
@@ -41,6 +41,7 @@ def landing_page(request):
         "page": page,
         "next_page": next_page,
         "has_next": has_next,
+        "user_lists": user_lists,
     }
 
     if request.headers.get('HX-Request'):

@@ -1,0 +1,33 @@
+{% load static %}
+{% if movies %}
+	{% for movie in movies %}
+    <div class="col-md">
+        <div class="card" style="width: 18rem;">
+          {% if is_owner %}
+            <button
+              class="btn btn-danger position-absolute end-0 top-0 opacity-50 m-1"
+              data-bs-toggle="modal" data-bs-target="#delete-movie-modal-{{ movie.id }}"
+            >✖️</button>
+            {% include 'users/modals/_movie_delete_confirmation.html' %}
+          {% endif %}
+          <a href="{% url 'movie_detail' movie.id %}" class="text-decoration-none">
+            <img src="{% if movie.poster_path %}
+                        https://image.tmdb.org/t/p/original/{{ movie.poster_path }}
+                      {% else %}
+                        {% static 'img/no-image-found.png' %}
+                      {% endif %}" class="card-img-top" alt="{{ movie.title }}">
+            <div class="card-body">
+              <h5 class="card-title">{{ movie.title }}</h5>
+              <p class="card-text">{{ movie.vote_average|floatformat:1 }} / 10</p>
+            </div>
+          </a>
+        </div>
+    </div>
+  {% endfor %}
+{% else %}
+  <div class="position-absolute top-50 start-50">
+    <p>This list is empty 😞</p>
+    <a href="/" class="btn btn-primary">Find Movies</a>
+  </div>
+{% endif %}
+
