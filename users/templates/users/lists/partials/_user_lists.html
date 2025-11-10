@@ -1,7 +1,7 @@
 <ul class="list-group">
   {% for list in user_lists %}
     <li class="list-group-item d-flex">
-      <a href="#">{{ list.name }}</a>
+      <a href="{% url 'list_detail' list_id=list.id %}">{{ list.name }}</a>
       <button class="btn" data-bs-toggle="modal" data-bs-target="#delete-list-modal-{{ list.id }}">❌</button>
     </li>
     {% include 'users/modals/_list_delete_confirmation.html' %}

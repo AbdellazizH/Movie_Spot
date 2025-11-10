@@ -18,7 +18,7 @@
         <h3>Genres :</h3>
         <ul class="list-inline">
           {% for genre in movie.genres %}
-            <li class="list-inline-item">{{ genre.name }}</li>
+            <li class="list-inline-item">{{ genre.name }}{% if not forloop.last %}, {% endif %} </li>
             {% empty %}
             <p class="text-muted">No genres provided</p>
           {% endfor %}
@@ -28,7 +28,7 @@
         <ul class="list-inline">
           {% for member in credits.crew %}
             {% if member.job == "Director" %}
-              <li class="list-inline-item">{{ member.name }}</li>
+              <li class="list-inline-item">{{ member.name }}{% if not forloop.last %}, {% endif %} </li>
             {% endif %}
           {% empty %}
             <p class="text-muted">No director info available</p>
@@ -37,8 +37,8 @@
 
         <h3>Cast :</h3>
         <ul class="list-inline">
-          {% for member in credits.cast %}
-            <li class="list-inline-item">{{ member.name|slice:10 }}</li>
+          {% for member in credits.cast|slice:10 %}
+            <li class="list-inline-item">{{ member.name }}{% if not forloop.last %}, {% endif %} </li>
             {% empty %}
             <p class="text-muted">No member provided</p>
           {% endfor %}
@@ -64,6 +64,9 @@
                     </form>
                   </li>
                 {% endfor %}
+                <form method="get" action="{% url 'profile' %}">
+                  <button class="btn">➕ List</button>
+                </form>
               </ul>
             </div>
 
